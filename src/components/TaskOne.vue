@@ -16,22 +16,6 @@
         </v-col>
       </v-row>
 
-<!--
-  <v-parallax
-    dark
-    src="@/assets/1920x650.png"
-  >
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <v-col class="text-center" cols="12">
-        <h1 class="display-1 font-weight-bold mb-4">Hello Developer!</h1>
-        <h4 class="subheading">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
-      </v-col>
-    </v-row>
-  </v-parallax>-->
-
     <v-row>
     <v-container fluid>
         <v-row>
@@ -191,6 +175,14 @@
             }
       },
 
+      imageSelection() {
+        if(this.$isMobile() == true){
+          this.image= require('@/assets/600x600.png')
+        } else {
+          this.image= require('@/assets/1920x650.png')
+        }
+      },
+
       readFirst() {
         this.readMoreFirst =! this.readMoreFirst
       },
@@ -207,8 +199,9 @@
     mounted(){},
 
     created() {
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
+        this.imageSelection();
+        //window.addEventListener('resize', this.handleResize);
+        //this.handleResize();
     },
 
     destroyed() {
@@ -254,7 +247,7 @@
   and (min-width: 375px)
   and (orientation: portrait) { 
     .imgtext {
-      padding-top: 26%;
+      padding-top: 24%;
   }
 }
 
@@ -262,7 +255,7 @@
   and (min-width: 768px)
   and (orientation: portrait){
       .imgtext {
-      padding-top: 14%;
+      padding-top: 12%;
   }
 }
 </style>

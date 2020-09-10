@@ -7,8 +7,10 @@ import store from './store/index'
 import axios from 'axios'
 import Vuex from 'vuex'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import VueMobileDetection from 'vue-mobile-detection'
 
 Vue.use(Vuex)
+Vue.use(VueMobileDetection)
 window.axios = axios
 Vue.config.productionTip = false
 

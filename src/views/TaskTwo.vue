@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card v-if="isMobile" id="tab" ref="tab">
+    <v-card v-if="isMobileDevice" id="tab" ref="tab">
     <v-toolbar
       color="indigo darken-4"
       dark
@@ -38,33 +38,24 @@
     <br/>
     
     <v-container fluid>
-  <v-card v-if="!isMobile" id="accordion" ref="accordion">
-    <v-row justify="center">
-    <v-expansion-panels accordion focusable>
+  <v-row v-if="!isMobileDevice" id="accordion" ref="accordion">
+    <v-expansion-panels accordion focusable v-model="panel">
+      <v-btn @click="clearPanel" color="pink" dark >close</v-btn>
       <v-expansion-panel
-        v-for="(n) in dataTitleDisplay"
-        :key="n"
+        v-for="(item, i) in dataTitleDisplay"
+        :key="i"
       >
-        <v-expansion-panel-header color="green accent-2" class="headline" >{{ n }}</v-expansion-panel-header>
+        <v-expansion-panel-header color="green accent-2" class="headline" >{{ item }}</v-expansion-panel-header>
 
         <v-expansion-panel-content
-        v-for="(n) in dataContentDisplay"
-        :key="n"
+        v-for="(item, i) in dataContentDisplay"
+        :key="i"
         color="cyan lighten-5">
-          {{ n }}
+          {{ item }}
         </v-expansion-panel-content>
       </v-expansion-panel>
-      <!--
-          <v-btn
-            color="pink darken-1"
-            text
-            @click="clickHeader()"
-          >
-            Close
-          </v-btn>-->
     </v-expansion-panels>
   </v-row>
-  </v-card>
   </v-container>
   </v-container>
 </template>
@@ -78,7 +69,9 @@
       window: {
             width: 0
         },
-      isMobile: false
+      isMobileDevice: false,
+      item: 1,
+      panel: []
     }),
 
     computed: {
@@ -129,18 +122,27 @@
             }
       },
 
-      close () {
-        this.dialog = false
+      dataholderSelection() {
+        if(this.$isMobile() == true){
+          this.isMobileDevice = false;
+        } else {
+          this.isMobileDevice = true;
+        }
       },
 
-      clickHeader () {
-        //console.log("clicked")
+      selectedPanel () {
+        this.panel = [...Array(this.items).keys()].map((k, i) => i)
+      },
+
+      clearPanel () {
+        this.panel = []
       }
     },
 
     created() {
-        window.addEventListener('resize', this.windowResize);
-        this.windowResize();
+        this.dataholderSelection();
+        //window.addEventListener('resize', this.windowResize);
+        //this.windowResize();
     },
 
     destroyed() {

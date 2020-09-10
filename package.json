@@ -10,7 +10,9 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "material-design-icons-iconfont": "^5.0.1",
+    "mobile-device-detect": "^0.4.3",
     "vue": "^2.6.11",
+    "vue-mobile-detection": "^1.0.0",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
     "vuex": "^3.5.1"

@@ -4,7 +4,8 @@
     <v-app-bar
       color="amber"
       dark
-      max-height="65"
+      max-height="57"
+      class="toolbar"
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
@@ -20,16 +21,13 @@
         </v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
-      <v-avatar tile>
-        <img src="@/assets/MindArc.png" id="mindarc_logo">
-      </v-avatar>
     </v-app-bar>
 
     <v-navigation-drawer
       v-model="drawer"
       absolute
       temporary
-      class="pink"
+      class="green accent-2"
     >
       <v-list
         nav
@@ -54,7 +52,7 @@
 
           <v-list-item exact>
             <v-list-item-icon>
-              <v-icon color="info">mdi-pencil</v-icon>
+              <v-icon color="pink">mdi-pencil</v-icon>
             </v-list-item-icon>
             <v-list-item-title><router-link to="/task2">Task Two</router-link></v-list-item-title>
           </v-list-item>
@@ -66,7 +64,6 @@
     <v-main>
       <router-view></router-view>
     </v-main>
-
     <v-footer
     dark
     padless
@@ -101,6 +98,7 @@
 </template>
 
 <script>
+import { isMobile } from 'mobile-device-detect';
   export default {
     data: () => ({
       menuItems: [
@@ -114,7 +112,8 @@
         'mdi-linkedin',
         'mdi-instagram',
       ],
-      tile: false
+      tile: false,
+      msg: isMobile ? 'Opened in Mobile' : 'Opened in Desktop!'
     }),
 
     methods: {
@@ -129,6 +128,10 @@
     mounted(){
         this.detectBrowser()
     },
+
+    created() {
+      //console.log(this.$isMobile())
+    }
   }
 </script>
 
@@ -152,9 +155,5 @@
       color: #42b983;
     }
   }
-}
-
-#go_one_logo {
-  border-radius: 10px;
 }
 </style>
