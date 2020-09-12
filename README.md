@@ -1,5 +1,3 @@
-# events-app
-
 ## Project setup
 ```
 npm install
