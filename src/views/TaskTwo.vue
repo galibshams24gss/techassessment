@@ -13,7 +13,7 @@
           centered
         >
           <v-tab
-            v-for="(n) in dataTitleDisplay"
+            v-for="(n) in dataTabDisplay.title"
             :key="n"
           >
             {{ n }}
@@ -24,7 +24,7 @@
 
     <v-tabs-items v-model="tabs">
         <v-tab-item
-        v-for="(n) in dataContentDisplay"
+        v-for="(n) in dataTabDisplay.content"
         :key="n">
         <v-card flat color="deep-purple lighten-3">
           <v-card-text class="headline">
@@ -37,22 +37,16 @@
 
     <br/>
     
-    <v-container fluid>
+<v-container fluid>
   <v-row v-if="!isMobileDevice" id="accordion" ref="accordion">
     <v-expansion-panels accordion focusable v-model="panel">
-      <v-btn @click="clearPanel" color="pink" dark >close</v-btn>
+      <v-btn @click="clearPanel" block color="pink" dark>close</v-btn>
       <v-expansion-panel
-        v-for="(item, i) in dataTitleDisplay"
+        v-for="(item,i) in dataAccordionDisplay"
         :key="i"
       >
-        <v-expansion-panel-header color="green accent-2" class="headline" >{{ item }}</v-expansion-panel-header>
-
-        <v-expansion-panel-content
-        v-for="(item, i) in dataContentDisplay"
-        :key="i"
-        color="cyan lighten-5">
-          {{ item }}
-        </v-expansion-panel-content>
+        <v-expansion-panel-header color="cyan accent-2" class="headline">{{ item.title }}</v-expansion-panel-header>
+        <v-expansion-panel-content color="cyan lighten-5">{{ item.content }}</v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
   </v-row>
@@ -79,37 +73,42 @@
         return this.$store.getters['datastore/data'];
       },
 
-      dataTitleDisplay(){
-          const dataArr = [];
+      dataAccordionDisplay(){
+          const dataAcc = [];
           const dataProc = this.data;
           dataProc.forEach(function(obj) {
             const title = obj.title;
-            dataArr.push(title);
+            const content = obj.content;
+            dataAcc.push({'title': title, 'content': content})
           });
-          return dataArr;
+          return dataAcc;
       },
 
-      dataContentDisplay(){
-          const dataArr = [];
+      dataTabDisplay(){
+          const dataTitle = [];
+          const dataContent = [];
+          const arr = [];
           const dataProc = this.data;
           dataProc.forEach(function(obj) {
-            const content = obj.content;
-            dataArr.push(content)
+            const title = obj.title;
+            dataTitle.push(title)
           });
-          return dataArr;
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
+          dataProc.forEach(function(obj) {
+            const content = obj.content;
+            dataContent.push(content)
+          });
+          arr['title'] =  dataTitle
+          arr['content'] =  dataContent
+          return arr;
       }
     },
 
+    watch: {},
+
     mounted(){
       this.data;
-      this.dataTitleDisplay;
-      this.dataContentDisplay;
+      this.dataTabDisplay;
+      this.dataAccordionDisplay;
     },
 
     methods: {

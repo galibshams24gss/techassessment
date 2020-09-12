@@ -2,12 +2,12 @@
   <v-container fluid>
 
       <v-row>
-        <v-col cols="12" sm="12" md="12" >
+        <v-col cols="12" sm="12" md="12">
             <v-img
             :src="image"
             >
                 <v-row>
-                <v-col cols="12" class="imgtext">
+                <v-col cols="12" class="centered">
                     <h1 class="display-1 font-weight-bold mb-4">Hello Developer!</h1>
                     <h4 class="subheading font-weight-thin">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
                 </v-col>
@@ -205,7 +205,7 @@
     },
 
     destroyed() {
-        window.removeEventListener('resize', this.handleResize);
+        //window.removeEventListener('resize', this.handleResize);
     }
   }
 </script>
@@ -243,19 +243,28 @@
       padding-top: 14%;
   }
 
-  @media only screen 
-  and (min-width: 375px)
-  and (orientation: portrait) { 
-    .imgtext {
-      padding-top: 24%;
+  .centered {
+      position: absolute;
+      color: #FFFFFF;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5em;
   }
-}
 
-@media only screen 
-  and (min-width: 768px)
-  and (orientation: portrait){
-      .imgtext {
-      padding-top: 12%;
+  @media only screen 
+      and (min-width: 375px)
+      and (orientation: portrait) { 
+        .centered {
+          font-size: 1.2em;
+      }
+    }
+
+  @media only screen 
+    and (min-width: 768px)
+    and (orientation: portrait){
+        .centered {
+        font-size: 1.2em;
+    }
   }
-}
 </style>
