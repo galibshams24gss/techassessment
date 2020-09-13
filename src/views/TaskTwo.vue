@@ -78,7 +78,7 @@
           const dataProc = this.data;
           dataProc.forEach(function(obj) {
             const title = obj.title;
-            const content = obj.content;
+            const content = (obj.content).replace(/<[^>]*>/g, '');
             dataAcc.push({'title': title, 'content': content})
           });
           return dataAcc;
@@ -94,7 +94,7 @@
             dataTitle.push(title)
           });
           dataProc.forEach(function(obj) {
-            const content = obj.content;
+            const content = (obj.content).replace(/<[^>]*>/g, '');
             dataContent.push(content)
           });
           arr['title'] =  dataTitle
